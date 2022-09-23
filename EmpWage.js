@@ -18,21 +18,22 @@ let totalWorkingDays = 0;
 let totalEmployeeWage = 0;
 let dayCounter = 0;
 let employeeDailyWageArray = new Array();
+let employeeDailyWageMap = new Map();
 
 function getWorkingHours(employeeCheck) {
 
     switch (employeeCheck) {
 
         case IS_PART_TIME:
-            console.log("Employee works Part Time");
+            console.log("Employee Part Time Present");
             return PART_TIME_HOURS;
 
         case IS_FULL_TIME:
-            console.log("Employee works Full Time");
+            console.log("Employee Full Time Present");
             return FULL_TIME_HOURS;
 
         default:
-            console.log("Employee is ABSENT");
+            console.log("Employee is Absent");
             return 0;
     }
 }
@@ -76,6 +77,8 @@ while (totalEmployeeHours <= MAX_HOURS_IN_MONTH && totalWorkingDays < NUM_OF_WOR
     let employeeHours = getWorkingHours(employeeCheck);
     totalEmployeeHours += employeeHours;
     employeeDailyWageArray.push(calculateDailyWage(employeeHours));
+    employeeDailyWageMap.set(totalWorkingDays, calculateDailyWage(employeeHours));
+
 }
 
 //UC - 7A
@@ -118,3 +121,7 @@ function totalDaysWorked(numberOfDays, dailyWage){
     return numberOfDays;
 }
 console.log("Number of Days the Employee has Worked = " + employeeDailyWageArray.reduce(totalDaysWorked, 0));
+
+//Use Case - 8
+console.log(employeeDailyWageMap);
+console.log("\nTotal Working Hours : "+ Array.from(employeeDailyWageMap.values()).reduce(totalWageUsingReduce,0));
